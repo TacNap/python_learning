@@ -1,8 +1,6 @@
 # 31/12/2024
-# Magic 8-Ball
-# Part of the Codecademy Python 3 Course
-# Intended to practice if statements
-
+# Magic 8-Ball Project from Codecademy Course
+# intended only to practice if statement blocks
 import random
 
 name = "Geoffrey"
@@ -32,5 +30,10 @@ elif random_number == 9:
 else: 
   answer = "Error"
 
-print(name + ' asks: ' + question)
+if name != "":
+  print(name + ' asks: ' + question)
+else:
+  print("Question: " + question)
 print("Magic 8-Ball's answer: " + answer)
+
+
