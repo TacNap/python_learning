@@ -37,16 +37,24 @@ if 'cataniel' in list:
     print('wahoo!')
     
 # List Methods
-nums = [1, 2, 3, 4, 5]
-nums.append(6)
-nums.insert(2, 2.5) # Takes index[2], pushes current [2] to [3]
-
+# Note that most of these perform the function in place. They do not return a copy of the list.
+nums = [1, 3, 4, 5, 5, 5]
 nums_two = [7, 8, 9]
-nums.extend(nums_two) # Appends separate list
 
+nums.append(6)
+nums.remove(5) # Removes first instance match. Throws error if element not present
+print(nums.pop(3)) # Removes and returns the element from index [3]
+nums.insert(1, 2) # Replaces index[1], pushes current [1] to [2]
+nums.extend(nums_two) # Appends separate list
+nums.sort() # Sorts the list in place. Other functions are preferred.
+
+if 2 in nums:
+    print(nums.index(2)) # Returns the index of a given element. Returns an error if element does not exist
 
 print(nums)
-print(nums_two)
+strings = ["one","two"]
+print(len(strings))
+
 
 
 
