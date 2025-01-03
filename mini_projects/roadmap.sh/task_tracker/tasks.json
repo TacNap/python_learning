@@ -1,0 +1,39 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Set up development environment for new project",
+      "status": "completed",
+      "createdAt": "2025-01-01T09:00:00Z",
+      "updatedAt": "2025-01-01T14:30:00Z"
+    },
+    {
+      "id": 2,
+      "description": "Review and update documentation for API endpoints",
+      "status": "in_progress",
+      "createdAt": "2025-01-02T10:15:00Z",
+      "updatedAt": "2025-01-03T11:45:00Z"
+    },
+    {
+      "id": 3,
+      "description": "Fix bug in user authentication module",
+      "status": "pending",
+      "createdAt": "2025-01-03T08:30:00Z",
+      "updatedAt": "2025-01-03T08:30:00Z"
+    },
+    {
+      "id": 4,
+      "description": "Implement new feature for data export functionality",
+      "status": "in_progress",
+      "createdAt": "2025-01-02T13:20:00Z",
+      "updatedAt": "2025-01-03T09:15:00Z"
+    },
+    {
+      "id": 5,
+      "description": true,
+      "status": "to do",
+      "createdAt": "right this very moment",
+      "updatedAt": "Updated!"
+    }
+  ]
+}
