@@ -10,29 +10,31 @@ Each task has the properties:
 	updatedAt : Date and Time of last update of task
 """
 import json
-import datetime
+from datetime import datetime
 import os
 
 filepath = "tasks.json"
+new_list = {"tasks": []}
+_statuses = ["", "To-Do", "In Progress", "Done"]
+
 
 # User-Called Functions
 def add(description):
 	data = open_file()
-
 	# Generate new ID
-	last_id = data["tasks"][-1]["id"]
-	new_id = last_id + 1
+	new_id = 1 if not data["tasks"] else data["tasks"][-1]["id"]+1
 
 	# Retrieve Time
-	current_time = "right this very moment"
+	time = str(datetime.now())
+
 
 	# Create new task
 	new_task = {
 		"id": new_id,
 		"description": description,
-		"status": "pending",
-		"createdAt": current_time,
-		"updatedAt": current_time
+		"status": _statuses[1],
+		"createdAt": time,
+		"updatedAt": time
 	}
 
 	data["tasks"].append(new_task)
@@ -63,7 +65,6 @@ def update(id, description):
 	print("Task Updated!")
 
 def update_status(id):
-	statuses = ["none", "To-Do", "In Progress", "Done"]
 	# Open file
 	data = open_file()
 
@@ -91,7 +92,7 @@ def update_status(id):
 	
 	# Change Status Accordingly
 	if status_code >= 1 and status_code <= 3:
-		task["status"] = statuses[status_code]
+		task["status"] = _statuses[status_code]
 	else: 
 		print("Input the right number")
 		return
@@ -101,7 +102,7 @@ def update_status(id):
 	
 	# Write to the file
 	write_file(data)
-	print("Status changed to " + statuses[status_code] + "!")
+	print("Status changed to " + _statuses[status_code] + "!")
 
 def delete(id):
 	# Open the file
@@ -125,11 +126,12 @@ def delete(id):
 	write_file(data)
 
 def list_tasks(status = ""):
+	if status not in _statuses:
+		print("Invalid Status")
+		return
 	data = open_file()
-	print_list(data)
+	print_list(data, status)
 
-def list_done():
-	pass
 
 # --- Helper Functions --- #
 def open_file():
@@ -137,33 +139,37 @@ def open_file():
 		with open(filepath, 'r') as file:
 			data = json.load(file)
 	except FileNotFoundError:
-		data = {}
+		data = new_list
+		write_file(data)
 	except json.JSONDecodeError:
-		data = {}
+		data = new_list
+		write_file(data)
 	return data
 
 # Currently prints JSON format
 # Change this to be more presentable
-def print_list(data):
-	#json_formatted = json.dumps(data, indent=2)
-	#print(json_formatted)
+def print_list(data, status = ""):
 	line_break = "______________________________________________________"
+	if not data["tasks"]:
+		print("No Tasks Yet!")
+		return
 	print(line_break)
+
 	for task in (data["tasks"]):
-		
-		print("[ID :",str(task["id"]) +"]")
-		print(task["description"])
-		print("	",task["status"])
-		print("	","Created:",task["createdAt"])
-		print("	","Last Update:",task["updatedAt"])
-		print(line_break)
+		if not status or task["status"] == status:
+			print("[ID :",str(task["id"]) +"]")
+			print(task["description"])
+			print("	",task["status"])
+			print("	","Created:",task["createdAt"])
+			print("	","Last Update:",task["updatedAt"])
+			print(line_break)
 
 def write_file(data):
 	with open(filepath, 'w') as file:
 		json.dump(data, file, indent=2)
 
 def update_time(task):
-	task["updatedAt"] = "Updated!"
+	task["updatedAt"] = str(datetime.now())
 
 
 
